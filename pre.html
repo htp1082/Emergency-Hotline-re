@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="card-container">
+  <div class="card">
+    <h2>Fire Service</h2>
+    <h3>102</h3>
+    <button class="call-btn" data-number="102" data-service="Fire Service">Call</button>
+  </div>
+
+  <div class="card">
+    <h2>Police</h2>
+    <h3>999</h3>
+    <button class="call-btn" data-number="999" data-service="Police">Call</button>
+  </div>
+</div>
+
+<!-- Call History Table -->
+<div class="history-section">
+  <h3>📜 Call History</h3>
+  <button id="clear-history">Clear</button>
+  <table border="1" width="100%">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Number</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody id="history-body"></tbody>
+  </table>
+</div>
+
+<script>
+
+  const historyBody = document.getElementById("history-body");
+const clearBtn = document.getElementById("clear-history");
+
+// Parent container এ শুধু একবার listener
+document.getElementById("card-container").onclick = function(e) {
+  if (e.target.className.includes("call-btn")) {
+    const number = e.target.getAttribute("data-number");
+    const service = e.target.getAttribute("data-service");
+
+    addToHistory(service, number);
+  }
+};
+
+function addToHistory(service, num) {
+  const tr = document.createElement("tr");
+  const time = new Date().toLocaleTimeString();
+
+  tr.innerHTML = `
+    <td>${service}</td>
+    <td>${num}</td>
+    <td>${time}</td>
+  `;
+
+  // নতুন এন্ট্রি উপরে বসবে
+  historyBody.prepend(tr);
+}
+
+clearBtn.onclick = function () {
+  historyBody.innerHTML = "";
+};
+
+</script>
+  
+</body>
+</html>
