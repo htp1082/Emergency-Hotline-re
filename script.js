@@ -61,26 +61,47 @@ for(let i =0; i<heart_btn.length; i++){
 };
 
 const coinDisplay = document.querySelector('.coin-display');
+const coinBtn = document.querySelectorAll('.call-btn');
 
-const coinBtn = document.querySelectorAll('.btn');
+let coin = 100;
 
-let coin =100;
+for (let i = 0; i < coinBtn.length; i++) {
+coinBtn[i].addEventListener('click', function(e) {
+ const number = e.target.getAttribute('data-number');
+ const service = e.target.getAttribute('data-service');
 
-for(let i =0; i<coinBtn.length; i++){
-    coinBtn[i].addEventListener('click',function(){
+ alert(`
+Number: ${number}
+Service: ${service}`);
 
-        //  const number = e.target.getAttribute('data-number');
-        // const service= e.target.getAttribute('data-service');
-
-        // alert(`তুমি এই button click করেছো\nNumber: ${number}\nService: ${service}`);
-        if(coin>=20){
-
-            coin -= 20;
-
-            coinDisplay.innerHTML = coin;
-
-        }else{
-            alert(" You dont have effeciant coin")
-        }
-    })
+ if (coin >= 20) {
+   coin -= 20;
+   coinDisplay.innerHTML = coin;
+ } else {
+   alert("You don’t have enough coin");
+ }
+});
 }
+  const buttons = document.querySelectorAll('.copy-btn');
+  const Copydisplay = document.querySelector('.copy-display')
+
+  let copyCount =0;
+
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function(e) {
+      const number = e.target.getAttribute('data-number');
+      const service = e.target.getAttribute('data-service');
+
+      navigator.clipboard.writeText(number)
+        .then(() => {
+            copyCount++;
+
+            Copydisplay.innerHTML=copyCount;
+
+
+          alert(`${service} number copied: ${number}`);
+        })
+       
+    });
+  }
+
